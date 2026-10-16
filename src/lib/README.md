@@ -1,0 +1,1 @@
+I needed to add a file to the directory for it to show up on the github commit, this is just a placeholder file and will be deleted once we start on the database.
