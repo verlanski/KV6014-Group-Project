@@ -16,14 +16,47 @@ This is the codebase for the KV6014 module group project.
 
 ---
 
-## Step 0: Get the project (first time only)
-
-```bash
-git clone <repository-url>
-cd <repository-name>
-```
+## Step 0: Get the project and get set up (first time only)
 
 Copy the URL from the green **Code** button on GitHub.
+
+### Check if you have node packet manager 
+
+Open a terminal and run:
+
+```bash
+node -v
+npm -v
+```
+
+If both show a version number skip to "Running the project". You don't beed this.
+
+However if you do not have it you will need to install (see below)
+
+### How to install
+
+If you are on windows watch this video
+
+https://www.youtube.com/watch?v=7pbQ4ZKPBiU
+
+If you are on Mac watch this video
+
+https://www.youtube.com/watch?v=0LWJ3gmScUY
+
+Download the LTS version from nodejs.org
+
+Close and reopen your terminal and run the commands you ran earlier to check it has been installed
+
+### Getting started
+
+All this will be in the terminal
+
+```bash
+git clone https://github.com/verlanski/KV6014-Group-Project.git
+cd KV6014-Group-Project
+npm install
+npm run dev
+```
 
 ---
 
