@@ -23,8 +23,9 @@ export default function HomePage() {
         /* These are the lables on the left e.g. "About Us" etc. */
         .section-label {
           font-size: 1rem;
-          font-weight: 400;
+          font-weight: 800;
           margin: 0;
+          text-decoration: underline
         }
 
         /* Small headings in the right column e.g "Rose Organisation" etc */
