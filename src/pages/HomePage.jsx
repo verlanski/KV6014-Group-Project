@@ -22,7 +22,7 @@ export default function HomePage() {
 
         /* These are the lables on the left e.g. "About Us" etc. */
         .section-label {
-          font-size: 1rem;
+          font-size: 1.2rem;
           font-weight: 800;
           margin: 0;
           text-decoration: underline
@@ -133,10 +133,10 @@ export default function HomePage() {
         <section className="home-section">
           <h2 className="section-label">Our upcoming event</h2>
           <div className="section-content">
-            <p className="event-slots"><strong>Slots Left: </strong></p>  {/*This will be dynamically generated from the admin dashboard. Left blank for now*/}
-            <p><strong>Location: </strong></p>                            {/*Same as above^^*/}
-            <p><strong>Date: </strong></p>                                {/*Same as above^^*/}
-            <p><strong>Time: </strong></p>                                {/*Same as above^^*/}
+            <p className="event-slots"><strong>Slots Left: [PLACEHOLDER - Needs to be dynamic]</strong></p>  {/*This will be dynamically generated from the admin dashboard. Left blank for now*/}
+            <p><strong>Location: [PLACEHOLDER - Needs to be dynamic]</strong></p>                            {/*Same as above^^*/}
+            <p><strong>Date: [PLACEHOLDER - Needs to be dynamic]</strong></p>                                {/*Same as above^^*/}
+            <p><strong>Time: [PLACEHOLDER - Needs to be dynamic]</strong></p>                                {/*Same as above^^*/}
 
             <div className="event-buttons">
               <button>Register</button>                 {/*This will be linked to the Registration Page*/}
@@ -150,7 +150,7 @@ export default function HomePage() {
 
 
 
-      {/* Start of Footer - left for dylan */}
+      {/* Start of Footer - left for dylan - this is the "contact us" stuff */}
       <footer>
         <p>&copy; 2023 Something something this is an exmaple. All rights reserved.</p>
       </footer>
