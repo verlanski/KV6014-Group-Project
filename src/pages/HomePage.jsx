@@ -87,13 +87,6 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* Start Header - Left for dylan*/}
-      <header>
-        <h1>Home Page</h1>
-      </header>
-      {/* End of Header */}
-
-
 
       {/* Start Of Main*/}
       <main className="home-main">
@@ -148,13 +141,6 @@ export default function HomePage() {
       </main>
       {/* End Of Main*/}
 
-
-
-      {/* Start of Footer - left for dylan - this is the "contact us" stuff */}
-      <footer>
-        <p>&copy; 2023 Something something this is an exmaple. All rights reserved.</p>
-      </footer>
-      {/* End of Footer - left for dylan */}
 
     </div>
   );
