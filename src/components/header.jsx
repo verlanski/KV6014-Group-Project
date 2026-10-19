@@ -26,7 +26,7 @@ export default function Header() {
         {/* Blue background with a rounded bottom */}
         <div
           aria-hidden="true"
-          className="absolute inset-x-[-15%] top-0 h-[96%] rounded-b-[50%] bg-[#c5d8ea]"
+          className="absolute inset-x-[-15%] top-0 h-[96%] rounded-b-[50%] bg-bg-surface-alternative"
         />
 
         {/* 2. The illustration from the figma wireframe */}

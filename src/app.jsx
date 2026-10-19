@@ -10,13 +10,16 @@ import { BrowserRouter, Routes, Route } from "react-router";
 
 //Components
 import Header from "./components/Header.jsx";
+import Footer from "./components/footer.jsx";
 
 
 
 export default function App() {
     return (
         <BrowserRouter>
+        <div className="min-h-screen flex flex-col">
             <Header />
+            <div className="flex-1"> 
             <Routes>
                 {/* Login and registration pages routed */}
                 <Route path="/login" element={<LoginPage />} />
@@ -30,7 +33,9 @@ export default function App() {
                 {/* Anything else (404) */}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
-        {/* Footer component to be added here if needed */}
+            </div>
+            <Footer />
+        </div>
         </BrowserRouter>
     );
 }
