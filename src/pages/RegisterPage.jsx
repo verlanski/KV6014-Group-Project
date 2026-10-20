@@ -199,7 +199,7 @@ export default function RegisterPage() {
                   id="fullName"
                   name="fullName"
                   type="text"
-                  placeholder="e.g. Siti Aminah"
+                  placeholder="e.g. JOHN DOE"
                   value={formData.fullName}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -298,7 +298,7 @@ export default function RegisterPage() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="+60 12-345 6789"
+                  placeholder="+44 012-345 6789"
                   value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
