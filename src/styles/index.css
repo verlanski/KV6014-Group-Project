@@ -22,3 +22,85 @@
   --color-button-alternative: #76869e; /* Slate Grey */
   --color-button-text: #000000;        /* Black */
 }
+/* Homepage layout */
+.home-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  line-height: 1.6;
+}
+
+/* Each homepage section */
+.home-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 3rem 0;
+  align-items: start;
+}
+
+/* Section labels */
+.section-label {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0;
+  text-decoration: underline;
+}
+
+/* Section headings */
+.section-content h3 {
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+
+/* Paragraph spacing */
+.section-content p {
+  margin: 0 0 1rem;
+}
+
+/* Section divider */
+.home-line-divider {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 0;
+}
+
+/* Event slots */
+.event-slots {
+  font-weight: 700;
+}
+
+/* Event buttons layout */
+.event-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+/* Event button styling */
+.event-buttons button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Button hover effect */
+.event-buttons button:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .home-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
+}
