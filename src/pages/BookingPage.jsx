@@ -68,7 +68,7 @@ export default function BookingPage() {
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pb-16">
+    <div className="mx-auto max-w-4xl px-4 pb-16">
       {/* Pink title bar from the wireframe */}
       <h1 className="bg-bg-surface py-4 text-center text-xl text-text-main">
         Time-slot booking
@@ -148,6 +148,6 @@ export default function BookingPage() {
           Next →
         </button>
       </div>
-    </main>
+    </div>
   );
 }
