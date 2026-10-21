@@ -13,6 +13,7 @@ const NAV_LINKS = [
 
 // Classes for when the user is hovering over the link, when the link is active and when the link is inactive.
 const linkBase =
+
   "block whitespace-nowrap rounded-full px-2.5 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:px-4";
 const linkActive = "bg-slate-200/80 font-medium text-blue-600";
 const linkInactive = "text-slate-800 hover:bg-white/50";

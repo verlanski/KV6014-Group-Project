@@ -16,7 +16,7 @@ export default function DashboardHeader({ title = "Admin Dashboard", onLogout })
       <button
         type="button"
         onClick={onLogout}
-        className="order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
+        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
       >
         Logout →
       </button>
