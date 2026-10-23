@@ -13,6 +13,7 @@ const NAV_LINKS = [
 
 // Classes for when the user is hovering over the link, when the link is active and when the link is inactive.
 const linkBase =
+
   "block whitespace-nowrap rounded-full px-2.5 py-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:px-4";
 const linkActive = "bg-slate-200/80 font-medium text-blue-600";
 const linkInactive = "text-slate-800 hover:bg-white/50";
@@ -20,21 +21,21 @@ const linkInactive = "text-slate-800 hover:bg-white/50";
 export default function Header() {
 
   return (
-    <header className="relative mb-12">
+    <header className="relative">
       {/* Inner wrapper: clips the oversized blue shape */}
-      <div className="relative h-56 sm:h-60 md:h-65 overflow-hidden bg-white">
+      <div className="relative h-56 sm:h-60 md:h-65 overflow-hidden bg-bg-surface">
         {/* Blue background with a rounded bottom */}
         <div
           aria-hidden="true"
           className="absolute inset-x-[-15%] top-0 h-[96%] rounded-b-[50%] bg-bg-surface-alternative"
         />
 
-        {/* 2. The illustration from the figma wireframe */}
+        {/* 2. The illustration (picture) from the figma wireframe */}
         <div className="absolute right-0 top-0 h-[95%] w-[70%] overflow-hidden rounded-b-[50%] opacity-40 md:w-[55%] md:opacity-100">
           <img
             src={HeaderImage}
             alt="Wireframe picture of a group of people"
-            className="h-full w-full object-cover object-top mask-[linear-gradient(to_right,transparent,black_35%)]"
+            className="h-full w-full object-cover object-[center-20%] mask-[linear-gradient(to_right,transparent,black_35%)]"
           />
         </div>
 

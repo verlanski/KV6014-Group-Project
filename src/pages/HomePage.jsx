@@ -6,7 +6,7 @@ export default function HomePage() {
     <div>
 
       {/* Start Of Main*/}
-      <main className="home-main">
+      <div className="home-main">
 
         {/* About Us */}
         <section className="home-section">
@@ -49,13 +49,17 @@ export default function HomePage() {
             <p><strong>Time: [PLACEHOLDER - Needs to be dynamic]</strong></p>                                {/*Same as above^^*/}
 
             <div className="event-buttons">
-              <button>Register</button>                 {/*This will be linked to the Registration Page*/}
-              <button>Already have an account?</button> {/*This will be linked to the Log-in page. What about admin? Do we have special link for that?*/}
+              <button label="Register" onClick={() => window.location.href = '/register'}>
+                Register
+              </button>               {/*This will be linked to the Registration Page*/}
+              <button label="Log in" onClick={() => window.location.href = '/login'}>
+                Already have an account?
+              </button> {/*This will be linked to the Log-in page. What about admin? Do we have special link for that?*/}
             </div>
           </div>
         </section>
 
-      </main>
+      </div>
       {/* End Of Main*/}
 
 
