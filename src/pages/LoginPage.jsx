@@ -107,7 +107,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
+    <div className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
       <div className="w-full max-w-xl bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden my-4 sm:my-8">
         {/* Header banner with pale sky / secondary color */}
         <div className="bg-secondary py-5 px-6 sm:px-10 text-center border-b border-slate-200">
@@ -246,6 +246,6 @@ export default function LoginPage() {
           </form>
         )}
       </div>
-    </main>
+    </div>
   );
 }
