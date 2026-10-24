@@ -1,4 +1,4 @@
-export default function BookingPage() {
+export default function confirmation() {
   return (
     <div>
       <style>{`
