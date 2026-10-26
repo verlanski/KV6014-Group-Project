@@ -7,7 +7,7 @@ import HeaderImage from "../assets/GroupImage.png";
 const NAV_LINKS = [
     {label: "Home", href: "/"},
   { label: "Book Appointment", href: "/booking" },
-  { label: "Cervical cancer", href: "/home#cervical-cancer" },
+  { label: "Cervical cancer", href: "/about-cervical-cancer" },
   { label: "Register", href: "/register" },
 ];
 
