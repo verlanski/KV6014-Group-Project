@@ -233,16 +233,6 @@ export default function LoginPage() {
                 Don't have an account? Register
               </Link>
             </div>
-
-            {/* Admin shortcut link matching wireframe note */}
-            <div className="pt-2 border-t border-slate-100 text-center sm:text-right">
-              <Link
-                to="/admin"
-                className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
-              >
-                Admin log in &rarr;
-              </Link>
-            </div>
           </form>
         )}
       </div>

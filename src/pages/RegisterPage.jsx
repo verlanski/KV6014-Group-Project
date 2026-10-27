@@ -155,7 +155,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
+    <div className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
       <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden my-4 sm:my-8">
         {/* Header matching Figma wireframe */}
         <div className="bg-bg-surface py-5 px-6 sm:px-10 text-center border-b border-slate-200">
@@ -199,7 +199,7 @@ export default function RegisterPage() {
                   id="fullName"
                   name="fullName"
                   type="text"
-                  placeholder="e.g. JOHN DOE"
+                  placeholder="e.g. John Doe"
                   value={formData.fullName}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -298,7 +298,7 @@ export default function RegisterPage() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="+44 012-345 6789"
+                  placeholder="012345678901"
                   value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -444,6 +444,6 @@ export default function RegisterPage() {
           </form>
         )}
       </div>
-    </main>
+    </div>
   );
 }
