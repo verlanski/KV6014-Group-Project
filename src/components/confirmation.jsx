@@ -1,4 +1,8 @@
 export default function confirmation() {
+  //need to confirm with badder if it is necessary to add the date being shown or simply gets shown in email reminders. Kivaan said not necessary but okay to add
+  const location = useLocation(); //accesses the route's info
+  const { date, time } = location.state || {}; //gets the date and time from the booking page, if there is none it is empty
+  
   return (
     <div>
       <style>{`
