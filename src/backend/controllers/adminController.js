@@ -1,4 +1,3 @@
-
 const adminService = require("../services/adminService");
 
 // GET all appointments
@@ -123,9 +122,145 @@ async function updateSlot(req, res) {
     }
 }
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const VALID_STATUSES = ["cancelled", "completed"];
+
+// GET one appointment
+async function getAppointment(req, res) {
+    try {
+        const { id } = req.params;
+
+        if (!UUID_PATTERN.test(id)) {
+            return res.status(400).json({ error: "Appointment ID is not valid" });
+        }
+
+        const appointment = await adminService.getAppointmentById(id);
+
+        if (!appointment) {
+            return res.status(404).json({ error: "Appointment not found" });
+        }
+
+        res.status(200).json({ success: true, appointment });
+
+    } catch (error) {
+        console.error("Unable to retrieve appointment:", error.message);
+
+        res.status(500).json({
+            error: "Unable to retrieve appointment"
+        });
+    }
+}
+
+// PATCH appointment status
+async function updateAppointmentStatus(req, res) {
+    try {
+        const { id } = req.params;
+        const { status } = req.body || {};
+
+        if (!UUID_PATTERN.test(id)) {
+            return res.status(400).json({ error: "Appointment ID is not valid" });
+        }
+
+        if (!VALID_STATUSES.includes(status)) {
+            return res.status(400).json({
+                error: "Status must be cancelled or completed"
+            });
+        }
+
+        const appointment = await adminService.updateAppointmentStatus(id, status);
+
+        res.status(200).json({ success: true, appointment });
+
+    } catch (error) {
+        console.error("Unable to update appointment status:", error.message);
+
+        res.status(500).json({
+            error: "Unable to update appointment status"
+        });
+    }
+}
+
+// PATCH reschedule appointment
+async function rescheduleAppointment(req, res) {
+    try {
+        const { id } = req.params;
+        const { slot_id } = req.body || {};
+
+        if (!UUID_PATTERN.test(id) || !UUID_PATTERN.test(slot_id || "")) {
+            return res.status(400).json({
+                error: "Appointment ID and slot_id must be valid"
+            });
+        }
+
+        const appointment = await adminService.rescheduleAppointment(id, slot_id);
+
+        res.status(200).json({ success: true, appointment });
+
+    } catch (error) {
+        console.error("Unable to reschedule appointment:", error.message);
+
+        res.status(500).json({
+            error: "Unable to reschedule appointment"
+        });
+    }
+}
+
+// DELETE appointment slot
+async function deleteSlot(req, res) {
+    try {
+        const { id } = req.params;
+
+        if (!UUID_PATTERN.test(id)) {
+            return res.status(400).json({ error: "Slot ID is not valid" });
+        }
+
+        await adminService.deleteSlot(id);
+
+        res.status(200).json({ success: true, message: "Slot deleted" });
+
+    } catch (error) {
+        console.error("Unable to delete slot:", error.message);
+
+        res.status(500).json({
+            error: "Unable to delete slot"
+        });
+    }
+}
+
+// GET one appointment slot
+async function getSlotById(req, res) {
+    try {
+        const { id } = req.params;
+
+        if (!UUID_PATTERN.test(id)) {
+            return res.status(400).json({ error: "Slot ID is not valid" });
+        }
+
+        const slot = await adminService.getSlotById(id);
+
+        if (!slot) {
+            return res.status(404).json({ error: "Slot not found" });
+        }
+
+        res.status(200).json({ success: true, slot });
+
+    } catch (error) {
+        console.error("Unable to retrieve slot:", error.message);
+
+        res.status(500).json({
+            error: "Unable to retrieve slot"
+        });
+    }
+}
+
 module.exports = {
     getAppointments,
+    getAppointment,
+    updateAppointmentStatus,
+    rescheduleAppointment,
     getSlots,
+    getSlotById,
     createSlot,
-    updateSlot
+    updateSlot,
+    deleteSlot
 };
