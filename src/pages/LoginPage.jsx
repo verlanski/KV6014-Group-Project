@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -10,7 +11,7 @@ export default function LoginPage() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   const validateField = (name, value) => {
     switch (name) {
@@ -75,8 +76,9 @@ export default function LoginPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setServerError("");
 
     // Mark all fields as touched
     const allTouched = Object.keys(formData).reduce((acc, key) => {
@@ -99,11 +101,46 @@ export default function LoginPage() {
 
     setIsSubmitting(true);
 
-    // Mock API / Supabase authentication stub
-    setTimeout(() => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email.trim(),
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed. Please check your credentials.");
+      }
+
+      // Persist auth tokens & user info
+      if (data.session?.access_token) {
+        localStorage.setItem("access_token", data.session.access_token);
+        localStorage.setItem("refresh_token", data.session.refresh_token);
+      }
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+      if (data.role) {
+        localStorage.setItem("user_role", data.role);
+      }
+
+      // Role-based routing: admin -> /admin, user -> /booking
+      const destination = data.role === "admin" ? "/admin" : "/booking";
+      navigate(destination);
+
+    } catch (err) {
+      setServerError(err.message || "Failed to log in. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 800);
+    }
   };
 
   return (
@@ -116,34 +153,15 @@ export default function LoginPage() {
           </h1>
         </div>
 
-        {isSuccess ? (
-          <div className="p-8 sm:p-12 text-center space-y-4">
-            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
-              ✓
+        <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-10 space-y-6">
+          {serverError && (
+            <div
+              role="alert"
+              className="p-3.5 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 font-medium"
+            >
+              {serverError}
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-800">
-              Welcome Back!
-            </h2>
-            <p className="text-slate-600 max-w-md mx-auto text-sm sm:text-base">
-              You have successfully logged in. You can now manage or book your screening appointments.
-            </p>
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to="/booking"
-                className="w-full sm:w-auto px-6 py-2.5 bg-primary text-white font-medium rounded-full hover:opacity-90 transition-opacity text-center"
-              >
-                Book Appointment
-              </Link>
-              <Link
-                to="/"
-                className="w-full sm:w-auto px-6 py-2.5 bg-slate-100 text-slate-700 font-medium rounded-full hover:bg-slate-200 transition-colors text-center"
-              >
-                Go to Home
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-10 space-y-6">
+          )}
             {/* Email Field */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
               <label
@@ -234,7 +252,6 @@ export default function LoginPage() {
               </Link>
             </div>
           </form>
-        )}
       </div>
     </div>
   );

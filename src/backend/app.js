@@ -5,6 +5,7 @@ const cors = require("cors");
 //import the API routes (Only admin for now because that's all I have done)
 
 const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 
 const app = express();
@@ -26,6 +27,7 @@ app.get("/api/health", (req, res) => {
 });
 
 //Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 
 //Export the app
