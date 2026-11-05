@@ -42,7 +42,8 @@ async function register(req, res) {
         console.error("Registration error:", error.message);
 
         // Friendly error for duplicate emails or auth issues
-        const statusCode = error.status || (error.message?.includes("already registered") ? 400 : 500);
+        const isDuplicate = error.status === 409 || error.message?.toLowerCase().includes("already exist") || error.message?.toLowerCase().includes("already registered");
+        const statusCode = isDuplicate ? 409 : (error.status || 500);
         res.status(statusCode).json({
             error: error.message || "Registration failed"
         });

@@ -7,6 +7,18 @@ const supabaseAdmin = require("../config/supabaseAdmin");
  * @returns {Promise<Object>} Created user, session, and profile
  */
 async function registerUser({ email, password, fullName, phone, address, consent }) {
+    // 0. Pre-check if email already exists via admin client
+    const { data: usersList } = await supabaseAdmin.auth.admin.listUsers();
+    const existingUser = usersList?.users?.find(
+        (u) => u.email?.toLowerCase() === email.toLowerCase()
+    );
+
+    if (existingUser) {
+        const error = new Error("An account with this email address already exists. Please log in instead.");
+        error.status = 409;
+        throw error;
+    }
+
     // 1. Sign up user via Supabase Auth
     const redirectUrl = process.env.FRONTEND_URL 
         ? `${process.env.FRONTEND_URL}/login` 
@@ -27,6 +39,13 @@ async function registerUser({ email, password, fullName, phone, address, consent
     });
 
     if (authError) throw authError;
+
+    // Check if Supabase detected a duplicate via empty identities
+    if (authData.user && (!authData.user.identities || authData.user.identities.length === 0)) {
+        const error = new Error("An account with this email address already exists. Please log in instead.");
+        error.status = 409;
+        throw error;
+    }
 
     const user = authData.user;
     if (!user) {
