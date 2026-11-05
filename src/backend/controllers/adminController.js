@@ -1,3 +1,4 @@
+
 const adminService = require("../services/adminService");
 
 // GET all appointments
@@ -263,4 +264,10 @@ module.exports = {
     createSlot,
     updateSlot,
     deleteSlot
+};
+module.exports = {
+    getAppointments,
+    getSlots,
+    createSlot,
+    updateSlot
 };

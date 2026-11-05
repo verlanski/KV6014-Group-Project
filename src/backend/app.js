@@ -42,6 +42,7 @@ app.use((req, res) => {
 });
 
 
+app.use("/api/admin", adminRoutes);
 
 //Export the app
 module.exports = app;

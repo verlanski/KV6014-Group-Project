@@ -8,37 +8,6 @@ export default function HomePage() {
       {/* Start Of Main*/}
       <div className="home-main">
 
-        {/* About Us */}
-        <section className="home-section">
-          <h2 className="section-label">About Us</h2>
-          <div className="section-content">
-            <h3>Rose Organisation</h3>
-            <p>
-              Rose is a Non-governmental Organisation that provides free cervical cancer screenings for women in B40,
-              underprivileged communities with household income below RM5,860.
-            </p>
-            <p>
-              We organise with collaborators and community leaders across Malaysia to choose a location for the event,
-              perform screenings, send it to the lab, and forward the results back to women.
-            </p>
-          </div>
-        </section>
-
-        {/* Cervical Cancer */}
-        <section className="home-section">
-          <h2 className="section-label">Why is screening important?</h2>
-          <div className="section-content">
-            <h3>Cervical Cancer</h3>
-            <p>
-              Targeted cancer screening is designed to test people without symptoms for early stage cancer, or for early changes
-              that could develop into cancer if left untreated. While screening can not diagnose cancer it can identify signs that
-              may need further investigation.
-            </p>
-          </div>
-        </section>
-
-        <hr className="home-line-divider" />
-
         {/* Upcoming Events */}
         <section className="home-section">
           <h2 className="section-label">Our upcoming event</h2>
@@ -56,6 +25,24 @@ export default function HomePage() {
                 Already have an account?
               </button> {/*This will be linked to the Log-in page. What about admin? Do we have special link for that?*/}
             </div>
+          </div>
+        </section>
+
+        <hr className="home-line-divider" />
+
+        {/* About Us */}
+        <section className="home-section">
+          <h2 className="section-label">About Us</h2>
+          <div className="section-content">
+            <h3>Rose Organisation</h3>
+            <p>
+              Rose is a Non-governmental Organisation that provides free cervical cancer screenings for women in B40,
+              underprivileged communities with household income below RM5,860.
+            </p>
+            <p>
+              We organise with collaborators and community leaders across Malaysia to choose a location for the event,
+              perform screenings, send it to the lab, and forward the results back to women.
+            </p>
           </div>
         </section>
 

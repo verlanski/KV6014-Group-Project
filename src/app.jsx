@@ -5,11 +5,12 @@ import RegisterPage from "./pages/RegisterPage";
 import BookingPage from "./pages/BookingPage";
 import HomePage from "./pages/HomePage";
 import AdminPage from "./pages/AdminPage";
+import AboutCCPage from "./pages/AboutCCPage";
 import NotFoundPage from "./pages/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 //Components
-import Header from "./components/Header.jsx";
+import Header from "./components/header.jsx";
 import Footer from "./components/footer.jsx";
 
 
@@ -28,6 +29,7 @@ export default function App() {
                 {/* Main pages */}
                 <Route path="/booking" element={<BookingPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/about-cervical-cancer" element={<AboutCCPage/>} />
                 <Route path="/" element={<HomePage />} />
 
                 {/* Anything else (404) */}
