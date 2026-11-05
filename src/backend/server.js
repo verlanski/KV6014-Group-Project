@@ -8,9 +8,6 @@ const { checkDatabaseConnection } = require("./services/healthService");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const routes = require("./routes/adminRoutes");
-
-app.use("/api/admin", routes);
 
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173"
@@ -18,6 +15,10 @@ app.use(cors({
 
 
 app.use(express.json());
+
+const routes = require("./routes/adminRoutes");
+
+app.use("/api/admin", routes);
 
 app.get("/api/health", async (req, res) => {
     try {

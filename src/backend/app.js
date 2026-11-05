@@ -10,6 +10,13 @@ const adminRoutes = require("./routes/adminRoutes");
 const app = express();
 
 
+const adminLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try again after 15 minutes"
+});
+
+
 //Middleware
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173"
@@ -26,6 +33,15 @@ app.get("/api/health", (req, res) => {
 });
 
 //Routes
+app.use("/api/admin", adminLimiter, adminRoutes);
+
+app.use((req, res) => {
+    res.status(404).json({
+        error: "Route not found"
+    });
+});
+
+
 app.use("/api/admin", adminRoutes);
 
 //Export the app
