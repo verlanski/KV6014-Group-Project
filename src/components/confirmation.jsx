@@ -78,7 +78,7 @@ export default function confirmation() {
       `}</style>
 
       {/* Actual main */}
-      <div className="booking-confirmation">
+      <main className="booking-confirmation">
 
         {/* heading of the page */}
         <h1>Booking Confirmation</h1>
@@ -91,7 +91,7 @@ export default function confirmation() {
 
         {/* Done button */}
         <a href="/" className="confirmation-done">Done →</a>
-      </div>
+      </main>
     </div>
   );
 }
