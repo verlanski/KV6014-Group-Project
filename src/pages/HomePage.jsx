@@ -22,7 +22,7 @@ export default function HomePage() {
                 Register
               </button>               {/*This will be linked to the Registration Page*/}
               <button label="Log in" onClick={() => window.location.href = '/login'}>
-                Already have an account?
+                Already have an account? Log in!
               </button> {/*This will be linked to the Log-in page. What about admin? Do we have special link for that?*/}
             </div>
           </div>
