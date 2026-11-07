@@ -5,9 +5,17 @@ const cors = require("cors");
 //import the API routes (Only admin for now because that's all I have done)
 
 const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 
 const app = express();
+
+
+const adminLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try again after 15 minutes"
+});
 
 
 //Middleware
@@ -26,6 +34,7 @@ app.get("/api/health", (req, res) => {
 });
 
 //Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 
 //Export the app

@@ -8,14 +8,12 @@ const { checkDatabaseConnection } = require("./services/healthService");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const routes = require("./routes/adminRoutes");
-
-app.use("/api/admin", routes);
+const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173"
 }));
-
 
 app.use(express.json());
 
@@ -23,6 +21,8 @@ app.use(express.json());
 // booking details sent from the page can be read from req.body.
 const bookingRoutes = require("./routes/bookingRoutes");
 app.use("/api/booking", bookingRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/api/health", async (req, res) => {
     try {
