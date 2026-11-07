@@ -8,17 +8,17 @@ const { checkDatabaseConnection } = require("./services/healthService");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173"
 }));
 
-
 app.use(express.json());
 
-const routes = require("./routes/adminRoutes");
-
-app.use("/api/admin", routes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/api/health", async (req, res) => {
     try {

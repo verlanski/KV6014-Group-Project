@@ -16,6 +16,7 @@ export default function RegisterPage() {
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   const validateField = (name, value, allValues) => {
     switch (name) {
@@ -122,8 +123,9 @@ export default function RegisterPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setServerError("");
 
     // Mark all fields as touched
     const allTouched = Object.keys(formData).reduce((acc, key) => {
@@ -147,15 +149,39 @@ export default function RegisterPage() {
 
     setIsSubmitting(true);
 
-    // Mock API call / Supabase hook stub
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+      const response = await fetch(`${apiUrl}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim(),
+          address: formData.address.trim(),
+          phone: formData.phone.trim(),
+          password: formData.password,
+          consent: formData.consent,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Registration failed. Please check your details and try again.");
+      }
+
       setIsSuccess(true);
-    }, 800);
+    } catch (err) {
+      setServerError(err.message || "Failed to register. Please check your network connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <main className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
+    <div className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
       <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden my-4 sm:my-8">
         {/* Header matching Figma wireframe */}
         <div className="bg-bg-surface py-5 px-6 sm:px-10 text-center border-b border-slate-200">
@@ -186,6 +212,14 @@ export default function RegisterPage() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-10 space-y-6">
+            {serverError && (
+              <div
+                role="alert"
+                className="p-3.5 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 font-medium"
+              >
+                {serverError}
+              </div>
+            )}
             {/* Full Name */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
               <label
@@ -199,7 +233,7 @@ export default function RegisterPage() {
                   id="fullName"
                   name="fullName"
                   type="text"
-                  placeholder="e.g. JOHN DOE"
+                  placeholder="e.g. John Doe"
                   value={formData.fullName}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -298,7 +332,7 @@ export default function RegisterPage() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="+44 012-345 6789"
+                  placeholder="012345678901"
                   value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -444,6 +478,6 @@ export default function RegisterPage() {
           </form>
         )}
       </div>
-    </main>
+    </div>
   );
 }
