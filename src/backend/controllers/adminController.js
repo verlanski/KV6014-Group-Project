@@ -265,9 +265,3 @@ module.exports = {
     updateSlot,
     deleteSlot
 };
-module.exports = {
-    getAppointments,
-    getSlots,
-    createSlot,
-    updateSlot
-};
