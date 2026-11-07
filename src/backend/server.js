@@ -17,6 +17,10 @@ app.use(cors({
 
 app.use(express.json());
 
+// Booking routes (Time-Slot Booking page). Added after express.json() so the
+// booking details sent from the page can be read from req.body.
+const bookingRoutes = require("./routes/bookingRoutes");
+app.use("/api/booking", bookingRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 
