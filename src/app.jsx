@@ -6,6 +6,7 @@ import BookingPage from "./pages/BookingPage";
 import HomePage from "./pages/HomePage";
 import AdminPage from "./pages/AdminPage";
 import AboutCCPage from "./pages/AboutCCPage";
+import Confirmation from "./pages/Confirmation";
 import NotFoundPage from "./pages/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router";
 
@@ -31,6 +32,7 @@ export default function App() {
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/about-cervical-cancer" element={<AboutCCPage/>} />
                 <Route path="/" element={<HomePage />} />
+                <Route path="/booking/confirmation" element={<Confirmation />} />
 
                 {/* Anything else (404) */}
                 <Route path="*" element={<NotFoundPage />} />
