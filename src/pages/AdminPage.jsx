@@ -16,9 +16,7 @@ export default function AdminPage() {
 
         {/* Row of three buttons: stacked on mobile, using grid from sm */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
-          <ManagementButton label="See all bookings" to="/admin/bookings" />
-          <ManagementButton label="Manage bookings" to="/admin/bookings/manage" />
-          <ManagementButton label="Remove bookings" to="/admin/bookings/remove" />
+          <ManagementButton label="Manage bookings" to="/admin/manage-bookings" />
         </div>
 
         {/* Cards on the left, chart on the right */}
