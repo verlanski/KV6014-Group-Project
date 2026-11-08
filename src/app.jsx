@@ -6,7 +6,7 @@ import BookingPage from "./pages/BookingPage";
 import HomePage from "./pages/HomePage";
 import AdminPage from "./pages/AdminPage";
 import AboutCCPage from "./pages/AboutCCPage";
-import Confirmation from "./pages/Confirmation";
+/*import Confirmation from "./pages/Confirmation";* Commenting out for now. This page does not exist yet and breakes the site */
 import NotFoundPage from "./pages/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router";
 
@@ -32,7 +32,7 @@ export default function App() {
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/about-cervical-cancer" element={<AboutCCPage/>} />
                 <Route path="/" element={<HomePage />} />
-                <Route path="/booking/confirmation" element={<Confirmation />} />
+                {/*<Route path="/booking/confirmation" element={<Confirmation />} /> */}  {/* Commenting out for now. This page does not exist yet and breakes the site */}
 
                 {/* Anything else (404) */}
                 <Route path="*" element={<NotFoundPage />} />
