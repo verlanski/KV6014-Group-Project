@@ -22,10 +22,11 @@ export default function AdminPage() {
 
         {/* Buttons on the left, chart on the right */}
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="grid grid-cols-1 content-start gap-20">
+          <div className="grid grid-cols-1 content-start gap-10">
             <ManagementButton label="Manage bookings" to="/admin/manage-bookings" />
             <ManagementButton label="Manage time slots" to="/admin/manage-timeslots" />
             <ManagementButton label="Manage slot capacity" to="/admin/manage-slot-capacity" />
+            <ManagementButton label="Manage community leaders" to="/admin/manage-community-leaders" />
           </div>
 
           <div className="md:col-span-2">
