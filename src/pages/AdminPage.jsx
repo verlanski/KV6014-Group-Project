@@ -25,7 +25,7 @@ export default function AdminPage() {
           <div className="grid grid-cols-1 content-start gap-20">
             <ManagementButton label="Manage bookings" to="/admin/manage-bookings" />
             <ManagementButton label="Manage time slots" to="/admin/manage-timeslots" />
-            <ManagementButton label="Manage slot capacity" to="/admin/slot-capacity" />
+            <ManagementButton label="Manage slot capacity" to="/admin/manage-slot-capacity" />
           </div>
 
           <div className="md:col-span-2">

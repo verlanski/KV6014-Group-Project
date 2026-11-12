@@ -8,6 +8,7 @@ import AdminPage from "./pages/AdminPage";
 import AboutCCPage from "./pages/AboutCCPage";
 import AdminManageBookingsPage from "./pages/AdminManageBookingsPage";
 import AdminManageTimeslots from "./pages/AdminManageTimeslots";
+import AdminManageSlotCapacity from "./pages/AdminManageSlotCapacity";
 /*import Confirmation from "./pages/Confirmation";* Commenting out for now. This page does not exist yet and breakes the site */
 
 import NotFoundPage from "./pages/NotFound";
@@ -39,6 +40,7 @@ export default function App() {
                 {/* Admin pages */}
                 <Route path="/admin/manage-bookings" element={<AdminManageBookingsPage />} />
                 <Route path="/admin/manage-timeslots" element={<AdminManageTimeslots />} />
+                <Route path="/admin/manage-slot-capacity" element={<AdminManageSlotCapacity />} />
                 <Route path="/admin" element={<AdminPage />} />
 
                 {/* Anything else (404) */}
