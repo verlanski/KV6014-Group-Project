@@ -1,5 +1,7 @@
 /* This is used for the admin manage time slots page. Once the backend is done, it'll be populated with actual time slot data etc*/
 
+
+//All these tables share very similar code structure!! Nearly all tables are a modified version of eachother, so they aren't vastly different. I did this for simplicity!!!
 export default function TimeslotsTable({ timeslots }) {
   return (
     <div className="overflow-x-auto rounded-lg bg-bg-main">

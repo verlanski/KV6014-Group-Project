@@ -1,3 +1,8 @@
+//This page is for the admins! So this uses a function called AdminManageCLPage, all it does it set out informaiton in a nice little chart table thing
+//It requires an array / data set thing in order to work correctly, so for now it just uses place holder data. 
+//But later on, it will use data from the back end from supabase.
+
+
 import { ManageCommunityLeadersHeader } from "../components/Admin/DashboardHeader";
 import CLTable from "../components/Admin/ManageCLTable";
 
@@ -8,6 +13,7 @@ const communityLeaders = [
   { id: 3, name: "Test Leader Placeholder3", email: "leader3@example.com", phone: "1234 24560", location: "Place 3" }
 ];
 
+//Once again, uses the same layout as the others.
 export default function AdminManageCommunityLeadersPage() {
   return (
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">

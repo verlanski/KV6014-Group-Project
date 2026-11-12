@@ -1,3 +1,7 @@
+//This page is for the admins! So this uses a function called AdminManageBookingsPage, all it does it set out informaiton in a nice little chart table thing
+//It requires an array / data set thing in order to work correctly, so for now it just uses place holder data. 
+//But later on, it will use data from the back end from supabase.
+
 import { ManageBookingsHeader } from "../components/Admin/DashboardHeader";
 import BookingsTable from "../components/Admin/ManageBookingsTable";
 
@@ -13,7 +17,7 @@ export default function AdminManageBookingsPage() {
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">
       <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6">
         <ManageBookingsHeader />
-        <BookingsTable bookings={bookings} />
+        <BookingsTable bookings={bookings} /> 
       </div>
     </div>
   );

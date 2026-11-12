@@ -2,6 +2,8 @@
 
 //This has the same structure as the other tables, I did this for simplicity and such.
 
+
+//All these tables share very similar code structure!! Nearly all tables are a modified version of eachother, so they aren't vastly different. I did this for simplicity!!!
 export default function CapacityTable({ capacity }) {
   return (
     <div className="overflow-x-auto rounded-lg bg-bg-main">

@@ -1,6 +1,9 @@
 /* This is used for the admin manage bookings page. Once all the backend is done, it'll be populated with actual booking data. */
 
 //Takes an array of bookings and displays them inside this table here :D W table.
+
+//All these tables share very similar code structure!! Nearly all tables are a modified version of eachother, so they aren't vastly different. I did this for simplicity!!!
+
 export default function BookingsTable({ bookings }) {
   return (
     <div className="overflow-x-auto rounded-lg bg-bg-main">

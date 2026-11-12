@@ -1,6 +1,9 @@
 /* This is used for the admin manage community leaders page. Once all the backend is done, it'll be populated with actual community leader data. */
 
 //Takes an array of community leaders and displays them inside this table here :D W table.
+
+//All these tables share very similar code structure!! Nearly all tables are a modified version of eachother, so they aren't vastly different. I did this for simplicity!!!
+
 export default function CLTable({ communityLeaders }) {
   return (
     <div className="overflow-x-auto rounded-lg bg-bg-main">
