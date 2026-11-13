@@ -4,7 +4,7 @@ export default function ManagementButton({ label, to }) {
   return (
     <Link
       to={to}
-      className="block rounded-full bg-button-main px-4 py-2 text-center text-sm text-text-main shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="block rounded-full bg-button-main px-4 py-6 text-center text-sm text-text-main shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       {label} →
     </Link>
