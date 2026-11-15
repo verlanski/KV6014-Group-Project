@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ManageTimeslotsHeader } from "../components/Admin/DashboardHeader";
 import TimeslotsTable from "../components/Admin/ManageTimeslotsTable";
 import { getAllSlots } from "../services/adminApi";
+import { useNavigate } from "react-router";
 
 //Loads the real time slots from the backend (GET /api/admin/slots).
 
@@ -10,7 +11,8 @@ export default function AdminManageTimeslots() {
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchSlots = async () => {
       try {
@@ -42,7 +44,7 @@ export default function AdminManageTimeslots() {
   return (
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">
       <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6">
-        <ManageTimeslotsHeader  />
+        <ManageTimeslotsHeader onBack={() => navigate("/admin")} />
         {loading && <p>Loading time slots...</p>}
         {error && <p className="text-red-600">{error}</p>}
         {!loading && !error && <TimeslotsTable 

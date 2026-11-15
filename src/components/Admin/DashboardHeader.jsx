@@ -16,8 +16,7 @@ export default function DashboardHeader({ title = "Admin Dashboard", onLogout })
       <button
         type="button"
         onClick={onLogout}
-        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
-      >
+        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer">
         Logout →
       </button>
     </header>
@@ -25,76 +24,72 @@ export default function DashboardHeader({ title = "Admin Dashboard", onLogout })
   );
 }
 
-export function ManageBookingsHeader({ title = "Admin: Manage Bookings", onLogout }) {
+export function ManageBookingsHeader({ title = "Admin: Manage Bookings", onLogout, onBack }) {
   return (
     <div className="relative w-full rounded-lg bg-bg-surface-alternative px-4 py-3 sm:px-6 sm:py-4">
     <header className="flex flex-col items-center gap-1">
       <h1 className="text-xl font-semibold text-text-main md:text-2xl">{title}</h1>
 
       {/* On mobile: its own row, aligned right above the title. From sm: pinned top-right */}
-      <button
-        type="button"
-        onClick={onLogout}
-        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
-      >
+      <button type="button" onClick={onLogout} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer">
         Logout →
+      </button>
+      <button type="button" onClick={onBack} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:left-4 sm:top-3 sm:order-0 cursor-pointer">
+        ← Back
       </button>
     </header>
     </div>
   );
 }
 
-export function ManageTimeslotsHeader({ title = "Admin: Manage Timeslots", onLogout }) {
+export function ManageTimeslotsHeader({ title = "Admin: Manage Timeslots", onLogout, onBack }) {
   return (
     <div className="relative w-full rounded-lg bg-bg-surface-alternative px-4 py-3 sm:px-6 sm:py-4">
     <header className="flex flex-col items-center gap-1">
       <h1 className="text-xl font-semibold text-text-main md:text-2xl">{title}</h1>
 
       {/* On mobile: its own row, aligned right above the title. From sm: pinned top-right */}
-      <button
-        type="button"
-        onClick={onLogout}
-        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
-      >
+      <button type="button" onClick={onLogout} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer">
         Logout →
+      </button>
+      <button type="button" onClick={onBack} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:left-4 sm:top-3 sm:order-0 cursor-pointer">
+        ← Back
       </button>
     </header>
     </div>
   );
 }
 
-export function ManageSlotCapacityHeader({ title = "Admin: Manage Slot Capacity", onLogout }) {
+export function ManageSlotCapacityHeader({ title = "Admin: Manage Slot Capacity", onLogout, onBack }) {
   return (
     <div className="relative w-full rounded-lg bg-bg-surface-alternative px-4 py-3 sm:px-6 sm:py-4">
     <header className="flex flex-col items-center gap-1">
       <h1 className="text-xl font-semibold text-text-main md:text-2xl">{title}</h1>
 
       {/* On mobile: its own row, aligned right above the title. From sm: pinned top-right */}
-      <button
-        type="button"
-        onClick={onLogout}
-        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
-      >
+      <button type="button" onClick={onLogout} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer">
         Logout →
+      </button>
+      <button type="button" onClick={onBack} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:left-4 sm:top-3 sm:order-0 cursor-pointer">
+        ← Back
       </button>
     </header>
     </div>
   );
 }
 
-export function ManageCommunityLeadersHeader({ title = "Admin: Manage Community Leaders", onLogout }) {
+export function ManageCommunityLeadersHeader({ title = "Admin: Manage Community Leaders", onLogout, onBack }) {
   return (
     <div className="relative w-full rounded-lg bg-bg-surface-alternative px-4 py-3 sm:px-6 sm:py-4">
     <header className="flex flex-col items-center gap-1">
       <h1 className="text-xl font-semibold text-text-main md:text-2xl">{title}</h1>
 
       {/* On mobile: its own row, aligned right above the title. From sm: pinned top-right */}
-      <button
-        type="button"
-        onClick={onLogout}
-        className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer"
-      >
+      <button type="button" onClick={onLogout} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:right-4 sm:top-3 sm:order-0 cursor-pointer">
         Logout →
+      </button>
+      <button type="button" onClick={onBack} className="bg-button-main order-first self-end rounded-full px-3 py-1 text-sm font-medium text-text-main transition-colors hover:bg-button-alternative/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:absolute sm:left-4 sm:top-3 sm:order-0 cursor-pointer">
+        ← Back
       </button>
     </header>
     </div>

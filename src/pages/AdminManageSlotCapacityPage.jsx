@@ -2,6 +2,7 @@ import { ManageSlotCapacityHeader } from "../components/Admin/DashboardHeader";
 import CapacityTable from "../components/Admin/ManageSlotCapacityTable";
 import { useEffect, useState } from "react";
 import { getAllSlots } from "../services/adminApi";
+import { useNavigate } from "react-router";
 
 //Placeholder for now. Later this will take actual data from the backend. But as for right now it uses dummy data :)
 const capacity = [
@@ -14,6 +15,7 @@ export default function AdminManageSlotCapacity() {
     const [slots, setSlots] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
   
     useEffect(() => {
       const fetchSlots = async () => {
@@ -49,7 +51,7 @@ export default function AdminManageSlotCapacity() {
   return (
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">
       <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6">
-        <ManageSlotCapacityHeader />
+        <ManageSlotCapacityHeader onBack={() => navigate("/admin")}/>
         <CapacityTable capacity={capacityData} />
       </div>
     </div>
