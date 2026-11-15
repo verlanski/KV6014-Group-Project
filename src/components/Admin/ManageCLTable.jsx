@@ -7,7 +7,7 @@
 export default function CLTable({ communityLeaders }) {
   return (
     <div className="overflow-x-auto rounded-lg bg-bg-main">
-      <table className="w-full min-w-[700px] text-left text-sm text-text-main">
+      <table className="w-full min-w-700px text-left text-sm text-text-main">
         <thead className="bg-header-bg">
           <tr>
             <th className="px-3 py-3">Name</th>

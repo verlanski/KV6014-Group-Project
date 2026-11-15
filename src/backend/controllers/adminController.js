@@ -20,6 +20,25 @@ async function getAppointments(req, res) {
         });
     }
 }
+// GET All booked appointments
+async function getBookedAppointments(req, res) {
+    try {
+        const appointments = await adminService.getBookedAppointments();
+
+        res.status(200).json({
+            success: true,
+            count: appointments.length,
+            appointments
+        });
+
+    } catch (error) {
+        console.error("Failed to retrieve booked appointments:", error.message);
+
+        res.status(500).json({
+            error: "Unable to retrieve booked appointments"
+        });
+    }
+}
 
 // GET all appointment slots
 async function getSlots(req, res) {
@@ -261,6 +280,7 @@ module.exports = {
     rescheduleAppointment,
     getSlots,
     getSlotById,
+    getBookedAppointments,
     createSlot,
     updateSlot,
     deleteSlot

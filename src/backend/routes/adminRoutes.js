@@ -19,6 +19,7 @@ router.get("/appointments", adminController.getAppointments);
 router.get("/slots", adminController.getSlots);
 router.get("/slots/:id", adminController.getSlotById);
 router.get("/appointments/:id", adminController.getAppointment);
+router.get("/appointments/booked", adminController.getBookedAppointments);
 
 //POST, PATCH, DELETE ROUTES
 router.post("/slots", adminController.createSlot);

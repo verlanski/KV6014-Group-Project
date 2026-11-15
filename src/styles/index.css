@@ -30,6 +30,15 @@
   line-height: 1.6;
 }
 
+.background-button-danger {
+  background-color: #ff4d4f; /* Red */
+  color: #fff; /* White text */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 /* Each homepage section */
 .home-section {
   display: grid;
