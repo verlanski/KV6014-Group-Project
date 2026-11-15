@@ -1,7 +1,36 @@
-
+import { useEffect, useState } from "react";
+import { getAllSlots } from "../services/adminApi";
 
 
 export default function HomePage() {
+      const [slots, setSlots] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+    
+      useEffect(() => {
+        const fetchSlots = async () => {
+          try {
+            // The login page saves the bearer token here after an admin logs in.
+            const token = localStorage.getItem("access_token");
+            if (!token) {
+              setError("Please log in as an admin to view time slots.");
+              return;
+            }
+    
+            const data = await getAllSlots(token);
+            setSlots(data);
+          } catch (err) {
+            console.error("Error fetching slots:", err);
+            setError("Couldn't load time slots. Please try again.");
+          } finally {
+            setLoading(false);
+          }
+        };
+      fetchSlots();
+    }, []);
+
+    const availableSlots = slots.filter(slot => slot.is_available).length || 0; // Count available slots, default to 0 if slots is empty
+
   return (
     <div>
 
@@ -12,7 +41,7 @@ export default function HomePage() {
         <section className="home-section">
           <h2 className="section-label">Our upcoming event</h2>
           <div className="section-content">
-            <p className="event-slots"><strong>Slots Left: [PLACEHOLDER - Needs to be dynamic]</strong></p>  {/*This will be dynamically generated from the admin dashboard. Left blank for now*/}
+            <p className="event-slots"><strong>Slots Left: {availableSlots}</strong></p>  {/*This will be dynamically generated from the admin dashboard. Left blank for now*/}
             <p><strong>Location: [PLACEHOLDER - Needs to be dynamic]</strong></p>                            {/*Same as above^^*/}
             <p><strong>Date: [PLACEHOLDER - Needs to be dynamic]</strong></p>                                {/*Same as above^^*/}
             <p><strong>Time: [PLACEHOLDER - Needs to be dynamic]</strong></p>                                {/*Same as above^^*/}
