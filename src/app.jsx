@@ -36,11 +36,7 @@ export default function App() {
                 <Route path="/booking" element={<BookingPage />} />
                 <Route path="/about-cervical-cancer" element={<AboutCCPage/>} />
                 <Route path="/" element={<HomePage />} />
-                {/*<Route path="/booking/confirmation" element={<Confirmation />} /> */}  {/* Commenting out for now. This page does not exist yet and breakes the site */}
-
-                {/* Admin pages */}
-                <Route path="/admin/manage-bookings" element={<AdminManageBookingsPage />} />
-                <Route path="/admin/manage-timeslots" element={<AdminManageTimeslots />} />
+                <Route path="/booking/confirmation" element={<Confirmation />} /> 
                 <Route path="/admin/manage-slot-capacity" element={<AdminManageSlotCapacity />} />
                 <Route path="/admin/manage-community-leaders" element={<AdminManageCommunityLeadersPage />} />
                 <Route path="/admin" element={<AdminPage />} />
