@@ -10,7 +10,7 @@ import AdminManageBookingsPage from "./pages/AdminManageBookingsPage";
 import AdminManageTimeslots from "./pages/AdminManageTimeslotsPage.jsx";
 import AdminManageSlotCapacity from "./pages/AdminManageSlotCapacityPage.jsx";
 import AdminManageCommunityLeadersPage from "./pages/AdminManageCLPage.jsx";
-/*import Confirmation from "./pages/Confirmation";* Commenting out for now. This page does not exist yet and breakes the site */
+import Confirmation from "./pages/Confirmation";
 
 import NotFoundPage from "./pages/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router";
