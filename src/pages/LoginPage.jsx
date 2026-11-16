@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { saveToken } from "../services/auth.js";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -122,9 +123,11 @@ export default function LoginPage() {
 
       // Persist auth tokens & user info
       if (data.session?.access_token) {
-        localStorage.setItem("access_token", data.session.access_token);
+        //Changed so that the access token is saved using the saveToken function, this way the header will update when the user logs in
+        saveToken(data.session.access_token);
         localStorage.setItem("refresh_token", data.session.refresh_token);
       }
+
       if (data.user) {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
