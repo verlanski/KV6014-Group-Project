@@ -10,7 +10,7 @@ import AdminManageBookingsPage from "./pages/AdminManageBookingsPage";
 import AdminManageTimeslots from "./pages/AdminManageTimeslotsPage.jsx";
 import AdminManageSlotCapacity from "./pages/AdminManageSlotCapacityPage.jsx";
 import AdminManageCommunityLeadersPage from "./pages/AdminManageCLPage.jsx";
-/*import Confirmation from "./pages/Confirmation";* Commenting out for now. This page does not exist yet and breakes the site */
+import Confirmation from "./pages/Confirmation";
 
 import NotFoundPage from "./pages/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router";
@@ -36,11 +36,7 @@ export default function App () {
                 <Route path="/booking" element={<BookingPage />} />
                 <Route path="/about-cervical-cancer" element={<AboutCCPage/>} />
                 <Route path="/" element={<HomePage />} />
-                {/*<Route path="/booking/confirmation" element={<Confirmation />} /> */}  {/* Commenting out for now. This page does not exist yet and breakes the site */}
-
-                {/* Admin pages */}
-                <Route path="/admin/manage-bookings" element={<AdminManageBookingsPage />} />
-                <Route path="/admin/manage-timeslots" element={<AdminManageTimeslots />} />
+                <Route path="/booking/confirmation" element={<Confirmation />} /> 
                 <Route path="/admin/manage-slot-capacity" element={<AdminManageSlotCapacity />} />
                 <Route path="/admin/manage-community-leaders" element={<AdminManageCommunityLeadersPage />} />
                 <Route path="/admin" element={<AdminPage />} />

@@ -1,6 +1,8 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import HeaderImage from "../assets/GroupImage.png";
 import logo from "../assets/rose_logo.svg";
+import { useEffect, useState} from "react";
+import { clearToken, isLoggedIn } from "../services/auth.js";
 
 
 
@@ -9,7 +11,7 @@ const NAV_LINKS = [
     {label: "Home", href: "/"},
   { label: "Book Appointment", href: "/booking" },
   { label: "Cervical cancer", href: "/about-cervical-cancer" },
-  { label: "Register", href: "/register" },
+  { label: "Login", href: "/login" },
 ];
 
 // Classes for when the user is hovering over the link, when the link is active and when the link is inactive.
@@ -20,6 +22,29 @@ const linkActive = "bg-slate-200/80 font-medium text-blue-600";
 const linkInactive = "text-slate-800 hover:bg-white/50";
 
 export default function Header() {
+
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn());
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setLoggedIn(isLoggedIn());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("authChange", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authChange", handleStorageChange);
+    };
+  }, []);
+
+  function handleLogout() {
+    clearToken();
+    setLoggedIn(false);
+    navigate("/");  
+  }
 
   return (
     <header className="relative">
@@ -62,21 +87,35 @@ export default function Header() {
         className="absolute inset-x-0 bottom-[15%] z-20 mx-auto w-[calc(100%-2rem)] max-w-xl translate-y-1/2 rounded-full border border-white/60 bg-white/40 px-2 py-2 shadow-lg backdrop-blur-md sm:px-3"
       >
         <ul className="flex items-center justify-center gap-1 overflow-x-auto text-xs sm:gap-3 sm:text-sm md:gap-5">
-          {NAV_LINKS.map(({ label, href }) => {
-            return (
-              <li key={label}>
-                <NavLink
-                    to={href}
-                    end={href === "/"}
-                    className={({ isActive }) =>
-                    `${linkBase} ${isActive ? linkActive : linkInactive}`
-                    }
-                >
-                    {label}
-                </NavLink>
-                </li>
-            );
-          })}
+             {NAV_LINKS.map(({ label, href }) => {
+                if (label === "Login" && loggedIn) {
+                  return (
+                    <li key={label}>
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className={`${linkBase} ${linkInactive} cursor-pointer`}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  );
+                }
+
+                return (
+                  <li key={label}>
+                    <NavLink
+                      to={href}
+                      end={href === "/"}
+                      className={({ isActive }) =>
+                        `${linkBase} ${isActive ? linkActive : linkInactive}`
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                );
+              })}
         </ul>
       </nav>
     </header>
