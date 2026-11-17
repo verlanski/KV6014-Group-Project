@@ -93,8 +93,34 @@ async function createAppointment(req, res) {
     }
 }
 
+// DELETE /api/booking/my-appointment (logged in patient only)
+async function cancelAppointment(req, res) {
+    try {
+        const result = await bookingService.cancelBooking(req.user.id);
+
+        if(result.problem === "not_found") {
+            return res.status(404).json({
+                error: "You do not have a screening booked"
+            });
+        }
+        res.status(200).json({
+            success: true,
+            appiontment: result.appointment
+        });
+
+    } catch (error) {
+        console.error("Failed to cancel appointment:", error.message);
+
+        res.status(500).json({
+            error: "Unable to cancel your appointment"
+        });
+    }
+    
+}
+
 module.exports = {
     getSlots,
     getMyAppointment,
-    createAppointment
+    createAppointment,
+    cancelAppointment
 };

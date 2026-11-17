@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { fetchSlots, bookAppointment } from "../services/bookingApi";
+import { fetchSlots, bookAppointment, fetchMyAppointment, cancelAppointment } from "../services/bookingApi";
 import { getAccessToken } from "../lib/supabaseClient";
 
 // Database times look like "09:30:00" - show them as "09:30".
@@ -23,6 +23,8 @@ export default function BookingPage() {
   const [message, setMessage] = useState("");      // message shown above Next
   const [needsLogin, setNeedsLogin] = useState(false);
   const [saving, setSaving] = useState(false);     // true while the booking is being saved
+  const [myAppointment, setMyAppointment] = useState(null); // the patients current booking (if they have one)
+  const [cancelling, setCancelling] =useState(false); // true while a cancellation is being saved
 
   const navigate = useNavigate();
 
@@ -39,8 +41,23 @@ export default function BookingPage() {
     }
   }
 
+  // find out if the patient already has a booking
+  async function loadMyAppointment() {
+    const token =await getAccessToken();
+    if (!token) {
+      setMyAppointment(null);
+      return;
+    }
+    try {
+      setMyAppointment(await fetchMyAppointment (token));
+    } catch {
+      setMyAppointment(null);
+    }
+  }
+
   useEffect(() => {
     loadSlots();
+    loadMyAppointment();
   }, []);
 
   // Dates that have at least one slot, used to limit the date picker.
@@ -102,7 +119,24 @@ export default function BookingPage() {
     } finally {
       setSaving(false);
     }
-  }
+    } //closes handleNext()
+
+    async function handleCancel() {
+      if (!window.confirm("Cancel your screening appointment?")) return;
+      setCancelling(true);
+      setMessage("");
+      try {
+        const token = await getAccessToken();
+        await cancelAppointment(token);
+        setMyAppointment(null);
+        setMessage("Your appointment has been cancelled.");
+        loadSlots(); // refresh so the freed up slot comes up as available for user
+      } catch (error) {
+        setMessage(error.message);
+      } finally {
+        setCancelling(false);
+      }
+    }
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-16">
@@ -111,8 +145,28 @@ export default function BookingPage() {
         Time-slot booking
       </h1>
 
+{myAppointment && (
+  <div className="mt-6 rounded-lg bg-bg-main p-4 shadow-md">
+    <p className="text-text-main">
+      You have a screening booked on {myAppointment.appointment_date} at{" "} 
+      {shortTime(myAppointment.appointment_time)}.
+    </p>
+
+   <button
+      type="button"
+      onClick={handleCancel}
+      disabled={cancelling}
+      className="mt-3 rounded px-4 py-2 font semibold text-text main underline disabled:cursor-not-allowed disabled"
+     >
+      {cancelling ? "Cancelling..." : "Cancel booking"}
+      </button>
+    </div>
+)}
+
+
+
       <div className="mt-10 grid gap-10 md:grid-cols-2">
-        {/* Left side: instruction text */}
+        {/* Leftside: instruction text */}
         <p className="text-lg text-text-main">
           Choose a date and time for your cervical screening:
         </p>
@@ -212,3 +266,4 @@ export default function BookingPage() {
     </div>
   );
 }
+

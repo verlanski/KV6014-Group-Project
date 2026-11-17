@@ -35,3 +35,23 @@ export async function bookAppointment(slotId, accessToken) {
   const body = await handleResponse(response);
   return body.appointment;
 }
+
+// Get the logged in patients current booking (null if they dont have one).
+export async function fetchMyAppointment(accessToken) {
+  const response = await fetch(`${API_URL}/api/booking/my-appointment`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+ });
+ const body = await handleResponse(response);
+ return body.appointment;
+}
+
+ // Cancel the logged in patients current booking
+
+ export async function cancelAppointment(accessToken) {
+  const response = await fetch (`${API_URL}/api/booking/my-appointment`, {
+    method: "DELETE", 
+    headers: { Authorization: `Bearer ${accessToken}` },
+   });
+   const body = await handleResponse(response);
+   return body.appointment;
+ }
