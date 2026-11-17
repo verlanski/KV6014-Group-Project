@@ -115,8 +115,44 @@ async function bookSlot(patientId, slotId) {
     return { appointment };
 }
 
+// Cancel the patients current booking and free the slot
+// patient is found from their login (patient_id) so no appointment id is necessary.
+// returns { appointment } on success, or { problem: "not_found"} if they have no booking.
+async function cancelBooking(patientId) {
+    // find the patients current booking.
+    const appointment = await getActiveAppointment(patientId);
+    if (!appointment) {
+        return { problem: "not_found" };
+    }
+    
+    // Delete it. Also matching patient_id mean it can only ever be their own.
+    const { error: deleteError } = await supabaseAdmin
+        .from("appointments")
+        .delete()
+        .eq("id", appointment.id)
+        .eq("patient_id", patientId);
+
+    if (deleteError) throw deleteError;
+
+    // Give slot back so it is available to user again.
+    const { error: freeError } = await supabaseAdmin
+        .from("appointment_slots")
+        .update({ is_available:true })
+        .eq("id", appointment.slot_id);
+
+    if (freeError) {
+        // Could not free slot so put appointment back before reporting error.
+        await supabaseAdmin
+            .from("appointments")
+            .insert({ ...appointment, patient_Id: patientId  });
+        throw freeError;
+    }
+return { appointment };
+}  
+
 module.exports = {
     getSlots,
     getActiveAppointment,
-    bookSlot
+    bookSlot,
+    cancelBooking
 };

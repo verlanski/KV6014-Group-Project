@@ -14,5 +14,5 @@ router.get("/slots", bookingController.getSlots);
 // Only logged-in patients can see or make their own booking.
 router.get("/my-appointment", authenticateUser, bookingController.getMyAppointment);
 router.post("/appointments", authenticateUser, bookingController.createAppointment);
-
+router.delete("/my-appointment", authenticateUser, bookingController.cancelAppointment);
 module.exports = router;
