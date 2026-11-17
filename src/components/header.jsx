@@ -1,5 +1,6 @@
 import { NavLink } from "react-router";
 import HeaderImage from "../assets/GroupImage.png";
+import logo from "../assets/rose_logo.svg";
 
 
 
@@ -41,10 +42,8 @@ export default function Header() {
 
         {/* 3. Logo + title still need to get the logo to put here, if no logo is needed jjust delete the container for logo and it's placeholder */}
         <div className="relative z-10 flex h-full items-center gap-4 px-4 pb-10 sm:gap-6 sm:px-6 md:gap-10 md:px-16 md:pb-0">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white text-center text-sm leading-tight text-slate-800 sm:h-24 sm:w-24 sm:text-lg md:h-28 md:w-28">
-            Logo
-            <br />
-            Here
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white text-center text-sm leading-tight text-slate-800 sm:h-32 sm:w-32 sm:text-lg md:h-36 md:w-36">
+            <img src={logo} alt="Logo" className="h-full w-full object-contain" />
           </div>
 
           <h1 className="text-xl font-bold leading-tight text-black sm:text-2xl md:text-3xl">

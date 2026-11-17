@@ -21,7 +21,7 @@ import Footer from "./components/footer.jsx";
 
 
 
-export default function App() {
+export default function App () {
     return (
         <BrowserRouter>
         <div className="min-h-screen flex flex-col">
