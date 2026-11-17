@@ -4,6 +4,8 @@ import ManagementButton from "../components/Admin/ManagementButton";
 import MetricsBarChart from "../components/Admin/MetricsBarChart";
 
 export default function AdminPage() {
+
+  
   return (
     
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">
