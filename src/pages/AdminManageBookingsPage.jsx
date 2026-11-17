@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { ManageBookingsHeader } from "../components/Admin/DashboardHeader";
 import BookingsTable from "../components/Admin/ManageBookingsTable";
 import { getAllAppointments } from "../services/adminApi";
+import { useNavigate } from "react-router";
 
 export default function AdminManageBookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -37,7 +39,7 @@ export default function AdminManageBookingsPage() {
   return (
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">
       <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6">
-        <ManageBookingsHeader />
+        <ManageBookingsHeader onBack={() => navigate("/admin")} />
         {loading && <p>Loading bookings...</p>}
         {error && <p className="text-red-600">{error}</p>}
         {!loading && !error && <BookingsTable bookings={bookings} />}
