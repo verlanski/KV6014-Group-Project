@@ -21,7 +21,7 @@ export default function Confirmation() {
 
         /* Pink heading */
         .booking-confirmation h1 {
-          background: #f3e4e8;
+          background: #efd5e3ff;
           text-align: center;
           padding: 1rem;
           margin: 0;
