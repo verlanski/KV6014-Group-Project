@@ -7,6 +7,8 @@ const rateLimit = require("express-rate-limit");
 
 const adminRoutes = require("./routes/adminRoutes");
 const authRoutes = require("./routes/authRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
+
 
 
 const app = express();
@@ -37,6 +39,7 @@ app.get("/api/health", (req, res) => {
 //Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/booking", bookingRoutes)
 
 //Export the app
 module.exports = app;
