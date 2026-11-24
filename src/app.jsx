@@ -9,7 +9,7 @@ import AboutCCPage from "./pages/AboutCCPage";
 import AdminManageBookingsPage from "./pages/AdminManageBookingsPage";
 import AdminManageTimeslots from "./pages/AdminManageTimeslotsPage.jsx";
 import AdminManageSlotCapacityPage from "./pages/AdminManageSlotCapacityPage.jsx";
-import AdminManageCLPage from "./pages/AdminManageCLPage.jsx";
+import AdminManagePTPage from "./pages/AdminManagePTPage.jsx";
 import Confirmation from "./pages/Confirmation";
 
 import NotFoundPage from "./pages/NotFound";
@@ -39,13 +39,16 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/booking/confirmation" element={<Confirmation />} /> 
 
+                {/* TEMP DEBUG: promotion tracking outside AdminRoute. Move back into /admin when done */}
+                <Route path="/manage-promotion-tracking" element={<AdminManagePTPage />} />
+
                 {/* Admin pages: AdminRoute checks the user is an admin first */}
                 <Route path="/admin" element={<AdminRoute />}>
                     <Route index element={<AdminPage />} />
                     <Route path="manage-bookings" element={<AdminManageBookingsPage />} />
                     <Route path="manage-timeslots" element={<AdminManageTimeslots />} />
                     <Route path="manage-slot-capacity" element={<AdminManageSlotCapacityPage />} />
-                    <Route path="manage-community-leaders" element={<AdminManageCLPage />} />
+
                 </Route>
 
                 {/* Anything else (404) */}

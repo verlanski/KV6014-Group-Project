@@ -5,7 +5,6 @@ import MetricsBarChart from "../components/Admin/MetricsBarChart";
 
 export default function AdminPage() {
 
-  
   return (
     
     <div className="bg-bg-surface-alternative px-4 py-6 sm:px-6 md:px-10 md:py-10">
@@ -28,7 +27,7 @@ export default function AdminPage() {
             <ManagementButton label="Manage bookings" to="/admin/manage-bookings" />
             <ManagementButton label="Manage time slots" to="/admin/manage-timeslots" />
             <ManagementButton label="Manage slot capacity" to="/admin/manage-slot-capacity" />
-            <ManagementButton label="Manage community leaders" to="/admin/manage-community-leaders" />
+            <ManagementButton label="Manage promotion tracking" to="/manage-promotion-tracking" />
           </div>
 
           <div className="md:col-span-2">
