@@ -1,45 +1,47 @@
 import { useState } from "react";
-import { Link } from "react-router";
 
-export default function RegisterPage() {
-  const [formData, setFormData] = useState({
-    fullName: "",
+export default function AdminManagePTPage() {
+  //Use State is just for memory, if something changes in these fields itll redraw the page, yay!
+  //Uses a dictionary to store key value pairs.
+  const [formData, setFormData] = useState({   
+    campaignName: "",
+    location: "",
+    startDate: "",
     email: "",
-    address: "",
     phone: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [serverError, setServerError] = useState("");
 
-  const validateField = (name, value, allValues) => {
+  const [errors, setErrors] = useState({});                           //Error messages for each field. 
+  const [touched, setTouched] = useState({});                         //Which fields have been touched by the user. Used to determine when to show error messages.
+  const [isSubmitting, setIsSubmitting] = useState(false);            //Is the form currently being submitted
+  const [isSuccess, setIsSuccess] = useState(false);                  //Show success screen / message
+  const [serverError, setServerError] = useState("");                 //Server error message
+  const [successMessage, setSuccessMessage] = useState("");           //Green "sent off" message
+
+  const validateField = (name, value) => {
     switch (name) {
-      case "fullName":
-        if (!value.trim()) return "Please give your name.";
+      case "campaignName":
+        if (!value.trim()) return "Campaign name is required";
         if (value.trim().length < 2) return "Name must be at least 2 characters";
-        if (!/^[a-zA-Z\s'.-]+$/.test(value.trim())) return "Please enter a valid name";
+        return "";
+
+      case "location":
+        if (!value.trim()) return "Location is required";
+        return "";
+
+      case "startDate":
+        if (!value) return "Start date is required";
         return "";
 
       case "email":
-        if (!value.trim()) return "Email address is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
-          return "Please enter a valid email address.";
-        }
-        return "";
-
-      case "address":
-        if (!value.trim()) return "Residential address is required";
-        if (value.trim().length < 5) return "Please enter a complete address";
+        if (!value.trim()) return "Email is required";
+        if (!/\S+@\S+\.\S+/.test(value.trim())) return "Email is invalid";
         return "";
 
       case "phone":
         if (!value.trim()) return "Phone number is required";
-        if (!/^\+?[0-9\s-]{8,16}$/.test(value.trim())) {
-          return "Please enter a valid phone number (e.g. +60 12-345 6789)";
-        }
+        if (value.trim().length < 10) return "Phone number must be at least 10 characters";
         return "";
 
       default:
@@ -50,7 +52,7 @@ export default function RegisterPage() {
   const validateAll = (data) => {
     const newErrors = {};
     Object.keys(data).forEach((key) => {
-      const error = validateField(key, data[key], data);
+      const error = validateField(key, data[key]);
       if (error) {
         newErrors[key] = error;
       }
@@ -59,53 +61,33 @@ export default function RegisterPage() {
   };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const fieldValue = type === "checkbox" ? checked : value;
-
-    const updatedData = {
-      ...formData,
-      [name]: fieldValue,
-    };
-
-    setFormData(updatedData);
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     // If already touched, re-validate on change
     if (touched[name]) {
-      const fieldError = validateField(name, fieldValue, updatedData);
-      setErrors((prev) => ({
-        ...prev,
-        [name]: fieldError,
-      }));
-
-      // Special check: if password changes, recheck confirmPassword if touched
-      if (name === "password" && touched.confirmPassword) {
-        setErrors((prev) => ({
-          ...prev,
-          confirmPassword: validateField("confirmPassword", updatedData.confirmPassword, updatedData),
-        }));
-      }
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
     }
   };
 
   const handleBlur = (e) => {
-    const { name, value, type, checked } = e.target;
-    const fieldValue = type === "checkbox" ? checked : value;
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+  };
 
-    setTouched((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
-
-    const fieldError = validateField(name, fieldValue, formData);
-    setErrors((prev) => ({
-      ...prev,
-      [name]: fieldError,
-    }));
+  const handleReset = () => {
+    setFormData({ campaignName: "", location: "", startDate: "", email: "", phone: "" });
+    setErrors({});
+    setTouched({});
+    setServerError("");
+    setIsSuccess(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError("");
+    setSuccessMessage("");
 
     // Mark all fields as touched
     const allTouched = Object.keys(formData).reduce((acc, key) => {
@@ -120,10 +102,7 @@ export default function RegisterPage() {
     if (Object.keys(validationErrors).length > 0) {
       // Focus on first invalid element
       const firstErrorField = Object.keys(validationErrors)[0];
-      const element = document.getElementById(firstErrorField);
-      if (element) {
-        element.focus();
-      }
+      document.getElementById(firstErrorField)?.focus();
       return;
     }
 
@@ -131,15 +110,17 @@ export default function RegisterPage() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      const response = await fetch(`${apiUrl}/api/auth/register`, {
+      //Placeholder route
+      const response = await fetch(`${apiUrl}/api/campaigns`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          fullName: formData.fullName.trim(),
+          campaignName: formData.campaignName.trim(),
+          location: formData.location.trim(),
+          startDate: formData.startDate,
           email: formData.email.trim(),
-          address: formData.address.trim(),
           phone: formData.phone.trim(),
         }),
       });
@@ -150,7 +131,11 @@ export default function RegisterPage() {
         throw new Error(data.error || "Submission failed. Please check your details and try again.");
       }
 
-      setIsSuccess(true);
+      setSuccessMessage("Campaign has been sent off successfully!");
+      setFormData({ campaignName: "", location: "", startDate: "", email: "", phone: "" });
+      setErrors({});
+      setTouched({});
+
     } catch (err) {
       setServerError(err.message || "Failed to submit. Please check your network connection and try again.");
     } finally {
@@ -161,7 +146,6 @@ export default function RegisterPage() {
   return (
     <div className="flex-1 py-8 px-4 sm:px-6 lg:px-8 flex justify-center items-start sm:items-center">
       <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden my-4 sm:my-8">
-        {/* Header matching Figma wireframe */}
         <div className="bg-bg-surface py-5 px-6 sm:px-10 text-center border-b border-slate-200">
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-wide">
             Campaigns
@@ -174,22 +158,29 @@ export default function RegisterPage() {
               ✓
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-800">
-              Campaign Successfully Submitted!
+              Campaign Successfully Created!
             </h2>
-            <p className="text-slate-600 max-w-md mx-auto text-sm sm:text-base">
-              Thank you for submitting your campaign details. Our team will review them soon.
-            </p>
             <div className="pt-4">
-              <Link
-                to="/login"
-                className="inline-block px-6 py-2.5 bg-primary text-white font-medium rounded-full hover:opacity-90 transition-opacity"
+              <button
+                type="button"
+                onClick={handleReset}
+                className="inline-block px-6 py-2.5 bg-primary text-white font-medium rounded-full hover:opacity-90 transition-opacity cursor-pointer"
               >
-                Go to Login
-              </Link>
+                Create another
+              </button>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-10 space-y-6">
+            {successMessage && (
+              <div
+                role="status"
+                className="p-3.5 rounded-lg bg-green-50 border border-green-200 text-sm text-green-700 font-medium"
+              >
+                {successMessage}
+              </div>
+            )}
+
             {serverError && (
               <div
                 role="alert"
@@ -198,31 +189,100 @@ export default function RegisterPage() {
                 {serverError}
               </div>
             )}
-            {/* Full Name */}
+
+            {/* Campaign Name */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
               <label
-                htmlFor="fullName"
-                className="text-base sm:text-lg font-medium text-slate-900 sm:w-1/3 shrink-0">
-                Full Name
+                htmlFor="campaignName"
+                className="text-base sm:text-lg font-medium text-slate-900 sm:w-1/3 shrink-0"
+              >
+                Campaign Name
               </label>
               <div className="flex-1">
                 <input
-                  id="fullName"
-                  name="fullName"
+                  id="campaignName"
+                  name="campaignName"
                   type="text"
-                  placeholder="e.g. John Doe"
-                  value={formData.fullName}
+                  placeholder="e.g. Autumn Screening Sale"
+                  value={formData.campaignName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  aria-invalid={!!(touched.fullName && errors.fullName)}
-                  aria-describedby={touched.fullName && errors.fullName ? "fullName-error" : undefined}
+                  aria-invalid={!!(touched.campaignName && errors.campaignName)}
+                  aria-describedby={touched.campaignName && errors.campaignName ? "campaignName-error" : undefined}
                   className={`w-full bg-transparent border-b-2 py-1.5 px-1 text-slate-900 focus:outline-none transition-colors ${
-                    touched.fullName && errors.fullName
+                    touched.campaignName && errors.campaignName
                       ? "border-red-500 focus:border-red-600"
-                      : "border-slate-800 focus:border-primary"}`}/>
-                {touched.fullName && errors.fullName && (
-                  <p id="fullName-error" className="mt-1 text-xs text-red-600 font-medium">
-                    {errors.fullName}
+                      : "border-slate-800 focus:border-primary"
+                  }`}
+                />
+                {touched.campaignName && errors.campaignName && (
+                  <p id="campaignName-error" className="mt-1 text-xs text-red-600 font-medium">
+                    {errors.campaignName}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
+              <label
+                htmlFor="location"
+                className="text-base sm:text-lg font-medium text-slate-900 sm:w-1/3 shrink-0"
+              >
+                Location
+              </label>
+              <div className="flex-1">
+                <input
+                  id="location"
+                  name="location"
+                  type="text"
+                  placeholder="e.g. Newcastle City Centre"
+                  value={formData.location}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.location && errors.location)}
+                  aria-describedby={touched.location && errors.location ? "location-error" : undefined}
+                  className={`w-full bg-transparent border-b-2 py-1.5 px-1 text-slate-900 focus:outline-none transition-colors ${
+                    touched.location && errors.location
+                      ? "border-red-500 focus:border-red-600"
+                      : "border-slate-800 focus:border-primary"
+                  }`}
+                />
+                {touched.location && errors.location && (
+                  <p id="location-error" className="mt-1 text-xs text-red-600 font-medium">
+                    {errors.location}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Start Date */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
+              <label
+                htmlFor="startDate"
+                className="text-base sm:text-lg font-medium text-slate-900 sm:w-1/3 shrink-0"
+              >
+                Start Date
+              </label>
+              <div className="flex-1">
+                <input
+                  id="startDate"
+                  name="startDate"
+                  type="date"
+                  value={formData.startDate}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.startDate && errors.startDate)}
+                  aria-describedby={touched.startDate && errors.startDate ? "startDate-error" : undefined}
+                  className={`w-full bg-transparent border-b-2 py-1.5 px-1 text-slate-900 focus:outline-none transition-colors ${
+                    touched.startDate && errors.startDate
+                      ? "border-red-500 focus:border-red-600"
+                      : "border-slate-800 focus:border-primary"
+                  }`}
+                />
+                {touched.startDate && errors.startDate && (
+                  <p id="startDate-error" className="mt-1 text-xs text-red-600 font-medium">
+                    {errors.startDate}
                   </p>
                 )}
               </div>
@@ -241,7 +301,7 @@ export default function RegisterPage() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="name@example.com"
+                  placeholder="e.g. example@example.com"
                   value={formData.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -261,39 +321,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Address */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
-              <label
-                htmlFor="address"
-                className="text-base sm:text-lg font-medium text-slate-900 sm:w-1/3 shrink-0"
-              >
-                Address
-              </label>
-              <div className="flex-1">
-                <input
-                  id="address"
-                  name="address"
-                  type="text"
-                  placeholder="Residential address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  aria-invalid={!!(touched.address && errors.address)}
-                  aria-describedby={touched.address && errors.address ? "address-error" : undefined}
-                  className={`w-full bg-transparent border-b-2 py-1.5 px-1 text-slate-900 focus:outline-none transition-colors ${
-                    touched.address && errors.address
-                      ? "border-red-500 focus:border-red-600"
-                      : "border-slate-800 focus:border-primary"
-                  }`}
-                />
-                {touched.address && errors.address && (
-                  <p id="address-error" className="mt-1 text-xs text-red-600 font-medium">
-                    {errors.address}
-                  </p>
-                )}
-              </div>
-            </div>
-
             {/* Phone */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-6">
               <label
@@ -307,7 +334,7 @@ export default function RegisterPage() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="012345678901"
+                  placeholder="e.g. (123) 456-7890"
                   value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -317,7 +344,8 @@ export default function RegisterPage() {
                     touched.phone && errors.phone
                       ? "border-red-500 focus:border-red-600"
                       : "border-slate-800 focus:border-primary"
-                  }`}/>
+                  }`}
+                />
                 {touched.phone && errors.phone && (
                   <p id="phone-error" className="mt-1 text-xs text-red-600 font-medium">
                     {errors.phone}
@@ -325,17 +353,19 @@ export default function RegisterPage() {
                 )}
               </div>
             </div>
-           
+
             {/* Form Actions */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center text-center gap-4">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group flex items-center justify-center gap-2 font-bold text-lg text-slate-900 hover:text-primary transition-colors py-2 px-3 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-60 cursor-pointer">
+                className="group flex items-center justify-center gap-2 font-bold text-lg text-slate-900 hover:text-primary transition-colors py-2 px-3 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-60 cursor-pointer"
+              >
                 <span>{isSubmitting ? "Submitting..." : "Submit"}</span>
                 <span
                   className="transition-transform group-hover:translate-x-1"
-                  aria-hidden="true">
+                  aria-hidden="true"
+                >
                   &rarr;
                 </span>
               </button>
