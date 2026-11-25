@@ -64,7 +64,7 @@ export default function AdminManagePTPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // If already touched, re-validate on change
+    //If already touched, re-validate on change
     if (touched[name]) {
       setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
     }
@@ -89,7 +89,7 @@ export default function AdminManagePTPage() {
     setServerError("");
     setSuccessMessage("");
 
-    // Mark all fields as touched
+    //Mark all fields as touched
     const allTouched = Object.keys(formData).reduce((acc, key) => {
       acc[key] = true;
       return acc;
@@ -100,7 +100,7 @@ export default function AdminManagePTPage() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
-      // Focus on first invalid element
+      //Focus on first invalid element
       const firstErrorField = Object.keys(validationErrors)[0];
       document.getElementById(firstErrorField)?.focus();
       return;
@@ -110,8 +110,8 @@ export default function AdminManagePTPage() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      //Placeholder route
-      const response = await fetch(`${apiUrl}/api/campaigns`, {
+      //Placeholder route - no idea what to do
+      const response = await fetch(`${apiUrl}/api/auth/campaigns`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
