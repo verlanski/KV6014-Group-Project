@@ -273,6 +273,37 @@ async function getSlotById(req, res) {
     }
 }
 
+/**
+ * POST /api/campaigns
+ */
+async function createCampaign(req, res) {
+    try {
+        const { campaignName, location, startDate, email, phone } = req.body;
+
+        if (!campaignName || !location || !startDate) {
+            return res.status(400).json({
+                error: "Campaign name, location, and start date are required"
+            });
+        }
+
+        const campaign = await adminService.createCampaign({
+            campaignName,
+            location,
+            startDate,
+            email,
+            phone,
+            userId: req.user.id   //set by authenticateUser middleware
+        });
+
+        res.status(201).json({ success: true, campaign });
+
+    } catch (error) {
+        console.error("Create campaign error:", error.message);
+        res.status(500).json({ error: error.message || "Failed to create campaign" });
+    }
+}
+
+
 module.exports = {
     getAppointments,
     getAppointment,
@@ -283,5 +314,6 @@ module.exports = {
     getBookedAppointments,
     createSlot,
     updateSlot,
-    deleteSlot
+    deleteSlot,
+    createCampaign
 };

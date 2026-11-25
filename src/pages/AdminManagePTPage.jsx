@@ -111,7 +111,7 @@ export default function AdminManagePTPage() {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       //Placeholder route - no idea what to do
-      const response = await fetch(`${apiUrl}/api/auth/campaigns`, {
+      const response = await fetch(`${apiUrl}/api/admin/campaigns`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

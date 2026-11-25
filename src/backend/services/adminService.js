@@ -151,6 +151,25 @@ async function getBookedAppointments() {
     return data;
 }
 
+async function createCampaign({ campaignName, location, startDate, email, phone, userId }) {
+    const { data, error } = await supabaseAdmin
+        .from("campaigns")
+        .insert({
+            campaign_name: campaignName,   // left side = DB column names
+            location,
+            start_date: startDate,
+            email,
+            phone,
+            created_by: userId             
+        })
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+
 module.exports = {
     getAllAppointments,
     getBookedAppointments,
@@ -161,5 +180,6 @@ module.exports = {
     getSlotById,
     createSlot,
     updateSlot,
-    deleteSlot
+    deleteSlot,
+    createCampaign
 };
