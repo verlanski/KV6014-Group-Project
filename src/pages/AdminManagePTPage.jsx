@@ -110,11 +110,14 @@ export default function AdminManagePTPage() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+       const token = localStorage.getItem("access_token");
+
       //Placeholder route - no idea what to do
       const response = await fetch(`${apiUrl}/api/admin/campaigns`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
         },
         body: JSON.stringify({
           campaignName: formData.campaignName.trim(),
