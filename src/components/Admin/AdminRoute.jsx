@@ -1,7 +1,7 @@
 //Here i will be creating an admin route for when a user tries to go to admin page
 //I will check if the user is an admin and if they are not i will redirect them to the home page
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -45,5 +45,5 @@ export default function AdminRoute({ children }) {
         return <Navigate to="/" replace/>;
     }
 
-    return children;
+    return children ?? <Outlet />;
 }
