@@ -27,7 +27,7 @@ export default function AdminPage() {
             <ManagementButton label="Manage bookings" to="/admin/manage-bookings" />
             <ManagementButton label="Manage time slots" to="/admin/manage-timeslots" />
             <ManagementButton label="Manage slot capacity" to="/admin/manage-slot-capacity" />
-            <ManagementButton label="Manage promotion tracking" to="/manage-promotion-tracking" />
+            <ManagementButton label="Manage promotion tracking" to="/admin/manage-promotion-tracking" />
           </div>
 
           <div className="md:col-span-2">
