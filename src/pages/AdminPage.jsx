@@ -30,7 +30,6 @@ export default function AdminPage() {
             <ManagementButton label="Manage slot capacity" to="/admin/manage-slot-capacity" />
             <ManagementButton label="Manage community leaders" to="/admin/manage-community-leaders" />
           </div>
-
           <div className="md:col-span-2">
             <MetricsBarChart />
           </div>
